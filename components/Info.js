@@ -23,11 +23,12 @@ var Info = {
                 document.querySelector(".arrow").style.transform = `rotate(${-location - (-z)}deg)`
             })
         } else {
-            console.log("DeviceOrientation not supported");
+            alert("DeviceOrientation not supported");
         }
     },
-
+    
     showLocation: function(position) {
+        alert("Geolocation working!");
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
 
