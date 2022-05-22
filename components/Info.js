@@ -3,7 +3,7 @@ import Data from '../Data'
     
 var Info = {
     id: undefined,
-    oninit: () => {
+    oncreate: () => {
         Data.currentLocation = Data.locationData[0]
         Info.id = navigator.geolocation.watchPosition(Info.showLocation, Info.errorLocation, { timeout: 2000 })
         
