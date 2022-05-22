@@ -8,20 +8,20 @@ var Info = {
         navigator.geolocation.watchPosition(Info.showLocation, Info.errorLocation, { timeout: 2000 })
         
         if (window.DeviceOrientationEvent) {
-        window.addEventListener("deviceorientation", (e) => {
-            
-            var x = e.beta
-            var y = e.gamma
-            var z = e.alpha
+            window.addEventListener("deviceorientation", (e) => {
+                
+                var x = e.beta
+                var y = e.gamma
+                var z = e.alpha
 
-            // document.getElementById("x").textContent = `X: ${x.toFixed()}`
-            // document.getElementById("y").textContent = `Y: ${y.toFixed()}`
-            // document.getElementById("z").textContent = `Z: ${z.toFixed()}`
+                // document.getElementById("x").textContent = `X: ${x.toFixed()}`
+                // document.getElementById("y").textContent = `Y: ${y.toFixed()}`
+                // document.getElementById("z").textContent = `Z: ${z.toFixed()}`
 
-            const location = 173
+                const location = 173
 
-            document.querySelector(".arrow").style.transform = `rotate(${-location - (-z)}deg)`
-        })
+                document.querySelector(".arrow").style.transform = `rotate(${-location - (-z)}deg)`
+            })
         } else {
             console.log("DeviceOrientation not supported");
         }
@@ -59,10 +59,10 @@ var Info = {
     },
 
     view: function(vnode) {
-        return m('.center', [
-            m("p.title#location"),
+        return m('.center.p-4', [
+            m("p.title", { id: "location" }),
             m(".arrow"),
-            m("p.title#distance"),
+            m("p.title", { id: "distance" }),
             m(".buttons", [
                 Data.locationData.map((location, index) => {
                     return m(`button.button.${Data.currentLocation == location && "is-success"}`, { onclick: () => Data.currentLocation = Data.locationData[index] }, location.name)
