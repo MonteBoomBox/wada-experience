@@ -38,7 +38,7 @@ var Info = {
         
         const location = Data.currentLocation
         
-        var distance = getDistance(latitude, longitude, location.latitude, location.longitude)
+        var distance = Data.getDistance(latitude, longitude, location.latitude, location.longitude)
         document.getElementById("distance").textContent = distance
 
         if (distance < location.tolerance) {
