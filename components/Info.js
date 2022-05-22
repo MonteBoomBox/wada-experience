@@ -5,7 +5,7 @@ var Info = {
     id: undefined,
     oncreate: () => {
         Data.currentLocation = Data.locationData[0]
-        Info.id = navigator.geolocation.watchPosition(Info.showLocation, Info.errorLocation, { timeout: 2000 })
+        navigator.geolocation.watchPosition(Info.showLocation, Info.errorLocation, { timeout: 2000 })
         
         if (window.DeviceOrientationEvent) {
         window.addEventListener("deviceorientation", (e) => {
@@ -71,9 +71,9 @@ var Info = {
         ])
     },
 
-    onbeforeremove: () => {
-        navigator.geolocation.clearWatch(Info.id)
-    }
+    // onbeforeremove: () => {
+    //     navigator.geolocation.clearWatch(Info.id)
+    // }
 }
     
 export default Info
