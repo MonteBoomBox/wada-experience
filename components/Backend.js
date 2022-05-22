@@ -25,11 +25,11 @@ var Backend = {
         //     console.table(Data.locationData)
         // })
 
-        m.request("http://localhost:8888/heritage/jsonapi/node/destination").then((res) => {
+        m.request("http://localhost:8888/heritage/jsonapi/node/destination", { headers: { "Access-Control-Allow-Origin:": "*" } }).then((res) => {
             var locations = res.data.relationships.field_locations.data
 
             locations.map((location) => {
-                m.request(`http://localhost:8888/heritage/jsonapi/node/destination/${location.id}`).then((res) => {
+                m.request(`http://localhost:8888/heritage/jsonapi/node/destination/${location.id}`, { headers: { "Access-Control-Allow-Origin:": "*" } }).then((res) => {
                     var data = res.data.attributes
                     var loc = {}
                     loc.name = data.title
