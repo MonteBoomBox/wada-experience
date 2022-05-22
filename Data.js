@@ -1,24 +1,96 @@
 var Data = {
-    locationData: [
-        {
-            name: "Roma Apartments",
-            latitude: 18.499505,
-            longitude: 73.811652,
-            tolerance: 10,
-        },
-        {
-            name: "Basketball Ground",
-            latitude: 18.498844,
-            longitude: 73.8118278,
-            tolerance: 10
-        },
-        {
-            name: "Kumar Parisar C-2",
-            latitude: 18.498932699245525,
-            longitude: 73.80233292355648,
-            tolerance: 10
+    locationData: [],
+
+    rotation: 0,
+    latitude: 0,
+    longitude: 0,
+
+    setupGyro: function(showText) {
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener("deviceorientation", (e) => {
+                
+            var x = e.beta
+            var y = e.gamma
+            var z = e.alpha
+
+            if (showText) {
+                // document.getElementById("x").textContent = `X: ${x.toFixed()}`
+                // document.getElementById("y").textContent = `Y: ${y.toFixed()}`
+                Data.rotation = z.toFixed()
+            }
+
+            const rotation = Data.currentLocation.degrees
+
+            document.querySelector(".arrow").style.transform = `rotate(${-rotation - (-z)}deg)`
+        })
+        } else {
+            console.log("DeviceOrientation not supported");
         }
-    ],
+    },
+
+    setupGeolocation: function(showText) {
+        if (showText) {
+            navigator.geolocation.watchPosition(Data.showLocationText, Data.errorLocation, { timeout: 2000 })
+            return
+        }
+
+        navigator.geolocation.watchPosition(Data.showLocation, Data.errorLocation, { timeout: 2000 })
+    },
+
+    showLocation: function(position) {
+        const latitude = position.coords.latitude
+        const longitude = position.coords.longitude
+
+        var inLocation = false
+        
+        const location = Data.currentLocation
+        
+        var distance = Data.getDistance(latitude, longitude, location.latitude, location.longitude)
+        document.getElementById("distance").textContent = distance
+
+        if (distance < location.tolerance) {
+            inLocation = true
+        } else {
+            inLocation = false
+        }
+
+        if (inLocation) {
+            document.getElementById("location").textContent = location.name
+        } else {
+            document.getElementById("location").textContent = "Not in location"
+        }
+    },
+
+    showLocationText: function(position) {
+        const latitude = position.coords.latitude
+        const longitude = position.coords.longitude
+
+        var inLocation = false
+
+        document.getElementById("lat").textContent = `Lat: ${latitude}`
+        document.getElementById("lon").textContent = `Lon: ${longitude}`
+        
+        const location = Data.currentLocation
+        
+        var distance = Data.getDistance(latitude, longitude, location.latitude, location.longitude)
+        document.getElementById("distance").textContent = distance
+
+        if (distance < location.tolerance) {
+            inLocation = true
+        } else {
+            inLocation = false
+        }
+
+        if (inLocation) {
+            document.getElementById("location").textContent = location.name
+        } else {
+            document.getElementById("location").textContent = "Not in location"
+        }
+    },
+    
+    errorLocation: (position) => {
+        console.log("Not working!")
+    },
 
     getDistance: function(lat1, lon1, lat2, lon2) {
         var radlat1 = Math.PI * lat1/180;

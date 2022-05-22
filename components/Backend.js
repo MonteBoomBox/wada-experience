@@ -1,62 +1,62 @@
+import axios from 'axios'
 import m from 'mithril'
 import Data from '../Data'
     
 var Backend = {
-    id: undefined,
     oninit: () => {
-        Data.currentLocation = Data.locationData[0]
-        Info.id = navigator.geolocation.watchPosition(Info.showLocation, Info.errorLocation, { timeout: 2000 })
         
-        if (window.DeviceOrientationEvent) {
-        window.addEventListener("deviceorientation", (e) => {
+        // axios.get("http://localhost:8888/heritage/jsonapi/node/destination").then((res) => {
+        //     var locations = res.data.data.relationships.field_locations.data
+
+        //     locations.map((location) => {
+        //         axios.get(`http://localhost:8888/heritage/jsonapi/node/destination/${location.id}`).then((res) => {
+        //             var data = res.data.data.attributes
+        //             var loc = {}
+        //             loc.name = data.title
+        //             loc.latitude = data.field_latitude
+        //             loc.longitude = data.field_longitude
+        //             loc.tolerance = data.field_tolerance
+        //             loc.direction = data.field_rotation
+
+        //             Data.locationData.push(loc)
+        //         })
+        //     })
             
-            var x = e.beta
-            var y = e.gamma
-            var z = e.alpha
+        //     console.table(Data.locationData)
+        // })
 
-            // document.getElementById("x").textContent = `X: ${x.toFixed()}`
-            // document.getElementById("y").textContent = `Y: ${y.toFixed()}`
-            // document.getElementById("z").textContent = `Z: ${z.toFixed()}`
+        m.request("http://localhost:8888/heritage/jsonapi/node/destination").then((res) => {
+            var locations = res.data.relationships.field_locations.data
 
-            const location = 173
+            locations.map((location) => {
+                m.request(`http://localhost:8888/heritage/jsonapi/node/destination/${location.id}`).then((res) => {
+                    var data = res.data.attributes
+                    var loc = {}
+                    loc.name = data.title
+                    loc.latitude = data.field_latitude
+                    loc.longitude = data.field_longitude
+                    loc.tolerance = data.field_tolerance
+                    loc.direction = data.field_rotation
 
-            document.querySelector(".arrow").style.transform = `rotate(${-location - (-z)}deg)`
+                    Data.locationData.push(loc)
+                })
+            })
         })
-        } else {
-            console.log("DeviceOrientation not supported");
-        }
+
+        Data.currentLocation = Data.locationData[0]
     },
 
-    showLocation: function(position) {
-        const latitude = position.coords.latitude
-        const longitude = position.coords.longitude
+    // oncreate: () => {
+    //     Data.setupGyro(true)
+    //     Data.setupGeolocation(true)
+    // },
 
-        var inLocation = false
-
-        document.getElementById("lat").textContent = `Lat: ${latitude}`
-        document.getElementById("lon").textContent = `Lon: ${longitude}`
-        
-        const location = Data.currentLocation
-        
-        var distance = Data.getDistance(latitude, longitude, location.latitude, location.longitude)
-        document.getElementById("distance").textContent = distance
-
-        if (distance < location.tolerance) {
-            inLocation = true
-        } else {
-            inLocation = false
-        }
-
-        if (inLocation) {
-            document.getElementById("location").textContent = location.name
-        } else {
-            document.getElementById("location").textContent = "Not in location"
-        }
-    },
     view: function(vnode) {
-        return m(".center", [
-            m('p.title#lat'),
-            m('p.title#lon'),
+        return m(".center.p-4", [
+            m('p.title#lat', Data.latitude),
+            m('p.title#lon', Data.longitude),
+            m('p.title#z', Data.rotation),
+            m('.arrow')
         ])
     }
 }
