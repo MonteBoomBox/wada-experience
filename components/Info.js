@@ -28,7 +28,6 @@ var Info = {
     },
     
     showLocation: function(position) {
-        alert("Geolocation working!");
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
 
