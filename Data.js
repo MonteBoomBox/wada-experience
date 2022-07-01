@@ -5,6 +5,9 @@ var Data = {
     latitude: 0,
     longitude: 0,
 
+    inLocation: false,
+    contentURL: "",
+
     setupGyro: function(showText) {
         if (window.DeviceOrientationEvent) {
             window.addEventListener("deviceorientation", (e) => {
@@ -40,8 +43,6 @@ var Data = {
     showLocation: function(position) {
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
-
-        var inLocation = false
         
         const location = Data.currentLocation
         
@@ -49,12 +50,12 @@ var Data = {
         document.getElementById("distance").textContent = distance
 
         if (distance < location.tolerance) {
-            inLocation = true
+            Data.inLocation = true
         } else {
-            inLocation = false
+            Data.inLocation = false
         }
 
-        if (inLocation) {
+        if (Data.inLocation) {
             document.getElementById("location").textContent = location.name
             
         } else {
@@ -66,8 +67,6 @@ var Data = {
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
 
-        var inLocation = false
-
         document.getElementById("lat").textContent = `Lat: ${latitude}`
         document.getElementById("lon").textContent = `Lon: ${longitude}`
         
@@ -77,12 +76,13 @@ var Data = {
         document.getElementById("distance").textContent = distance
 
         if (distance < location.tolerance) {
-            inLocation = true
+            Data.inLocation = true
+            Data.contentURL = `https://player.vimeo.com/video/${Data.currentLocation.content[0]}`
         } else {
-            inLocation = false
+            Data.inLocation = false
         }
 
-        if (inLocation) {
+        if (Data.inLocation) {
             document.getElementById("location").textContent = location.name
         } else {
             document.getElementById("location").textContent = "Not in location"
