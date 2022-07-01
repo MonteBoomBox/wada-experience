@@ -51,6 +51,7 @@ var Data = {
 
         if (distance < location.tolerance) {
             Data.inLocation = true
+            Data.contentURL = `https://player.vimeo.com/video/${Data.currentLocation.content[0]}`
         } else {
             Data.inLocation = false
         }
