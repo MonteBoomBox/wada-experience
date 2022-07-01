@@ -56,6 +56,7 @@ var Data = {
 
         if (inLocation) {
             document.getElementById("location").textContent = location.name
+            
         } else {
             document.getElementById("location").textContent = "Not in location"
         }
