@@ -60,6 +60,7 @@ var Data = {
             document.querySelector("iframe").src = `https://player.vimeo.com/video/${Data.currentLocation.content[0]}`
         } else {
             document.getElementById("location").textContent = "Not in location"
+            document.querySelector("iframe").src = ""
         }
     },
 
@@ -86,6 +87,7 @@ var Data = {
             document.querySelector("iframe").src = `https://player.vimeo.com/video/${Data.currentLocation.content[0]}`
         } else {
             document.getElementById("location").textContent = "Not in location"
+            document.querySelector("iframe").src = ""
         }
     },
     
