@@ -28,7 +28,7 @@ var Info = {
             m("p.title", { id: "location" }),
             m(".arrow"),
             m("p.title", { id: "distance" }),
-            m("iframe", { src: Data.contentURL })
+            m("iframe", { src: "" })
             // m(".buttons", [
             //     Data.locationData.map((location, index) => {
             //         return m(`button.button.${Data.currentLocation == location && "is-success"}`, { onclick: () => Data.currentLocation = Data.locationData[index] }, location.name)
