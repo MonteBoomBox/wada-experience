@@ -24,7 +24,7 @@ var Data = {
 
             const rotation = Data.currentLocation.degrees
 
-            document.querySelector(".arrow").style.transform = `rotate(${-rotation - (-z)}deg)`
+            document.querySelector(".arrow").style.transform = `rotate(${-rotation - (-z.toFixed())}deg)`
         })
         } else {
             console.log("DeviceOrientation not supported");

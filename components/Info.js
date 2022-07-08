@@ -3,7 +3,7 @@ import Data from '../Data'
     
 var Info = {
     oninit: () => {
-        m.request("https://heritage-backoffice.herokuapp.com/api/destinations/single/62c519374355ba3a2b96a89f", {
+        m.request("https://heritage-backoffice.herokuapp.com/api/destinations/single/62c7a547859dcf41981e0f0c", {
             method: "GET",
         }).then((res) => {
             console.log(res)
@@ -27,12 +27,12 @@ var Info = {
             m("p.title", { id: "location" }),
             m(".arrow"),
             m("p.title", { id: "distance" }),
-            m("iframe", { src: "" })
-            // m(".buttons", [
-            //     Data.locationData.map((location, index) => {
-            //         return m(`button.button.${Data.currentLocation == location && "is-success"}`, { onclick: () => Data.currentLocation = Data.locationData[index] }, location.name)
-            //     })
-            // ])
+            m("iframe", { src: "" }),
+            m(".buttons", [
+                Data.locationData.map((location, index) => {
+                    return m(`button.button.${Data.currentLocation == location && "is-success"}`, { onclick: () => Data.currentLocation = Data.locationData[index] }, location.name)
+                })
+            ])
         ])
     },
 
