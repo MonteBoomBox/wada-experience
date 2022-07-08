@@ -57,7 +57,7 @@ var Data = {
         
         if (Data.inLocation) {
             document.getElementById("location").textContent = location.name
-            document.querySelector("iframe").src = `https://player.vimeo.com/video/${Data.currentLocation.content[0]}`
+            document.querySelector("iframe").src = `https://player.vimeo.com/video/${Data.currentLocation.content[0]}?autoplay=1`
         } else {
             document.getElementById("location").textContent = "Not in location"
             document.querySelector("iframe").src = ""
