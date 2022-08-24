@@ -3,7 +3,7 @@ import Data from '../Data'
     
 var Info = {
     oninit: () => {
-        m.request("https://heritage-backoffice.herokuapp.com/api/destinations/single/62c7a547859dcf41981e0f0c", {
+        m.request("https://heritage-backoffice.herokuapp.com/api/destinations/single/6305a5acbc325ce681dbdcd3", {
             method: "GET",
         }).then((res) => {
             console.log(res)
